@@ -139,6 +139,7 @@ float calculate(const std::vector<std::string>& postfix)
 				case '-': st.push(y - x); break;
 				case '*': st.push(y * x); break;
 				case '/': st.push(y / x); break;
+				default : st.push(0); break;
 			}
 		}
 		else {
