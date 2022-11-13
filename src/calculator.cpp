@@ -1,3 +1,4 @@
+// C++ code
 #include <iostream>
 #include <string>
 #include <vector>
@@ -16,11 +17,13 @@ double calculate(const std::vector<std::string>& postfix);
 
 // C++ publics
 double cal_exp(const char exp[]) {
+    printf("c++ code\n");
     return calculate(infix_postfix(std::string(exp)));
 }
 
-// C publics
-double c_cal_exp(const char exp[]) {
+// C api publics
+extern "C" double c_cal_exp(const char exp[]) {
+    printf("c code\n");
     return calculate(infix_postfix(std::string(exp)));
 }
 

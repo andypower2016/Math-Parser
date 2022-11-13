@@ -1,5 +1,7 @@
-CC := g++
-
+CC := clang
+CXX := clang++
+CFLAGS := -g -O -fsanitize=address
+CXXFLAGS := -g -O -fsanitize=address
 # directories
 SRCFOLDER := $(PWD)
 BUILDFOLDER := $(PWD)/build
@@ -15,7 +17,9 @@ VPATH = $(SRCDIRS)
 TARGET = main
 INCLUDES := $(foreach dir,$(SRCDIRS),$(addprefix -I, $(dir)))
 SRCS := $(foreach dir,$(SRCDIRS),$(wildcard $(dir)/*.cpp))
+CSRCS :=$(foreach dir,$(SRCDIRS),$(wildcard $(dir)/*.c))
 OBJS := $(subst $(SRCFOLDER),$(BUILDFOLDER),$(SRCS:.cpp=.o))
+COBJS := $(subst $(SRCFOLDER),$(BUILDFOLDER),$(CSRCS:.c=.o))
 DEPS := $(OBJS:.o=.d)
 
 # tools
@@ -26,7 +30,11 @@ ERRIGNORE = 2>/dev/null
 define genRules
 $(1)/%.o: %.cpp
 	@echo Building $$@
-	$(CC) -c $$(INCLUDES) -o $$(subst /,$$(PSEP),$$@) $$(subst /,$$(PSEP),$$<) -MMD
+	$(CXX) $(CXXFLAGS) -c $$(INCLUDES) -o $$(subst /,$$(PSEP),$$@) $$(subst /,$$(PSEP),$$<) -MMD
+
+$(1)/%.o: %.c
+	@echo Building $$@
+	$(CC) $(CFLAGS) -c $$(INCLUDES) -o $$(subst /,$$(PSEP),$$@) $$(subst /,$$(PSEP),$$<) -MMD
 endef
 
 
@@ -36,8 +44,8 @@ all: createDir $(TARGET)
 output:
 	@echo $(INCLUDES)
 
-$(TARGET): $(OBJS)
-	$(CC) $(OBJS) -o $(TARGET)
+$(TARGET): $(OBJS) $(COBJS)
+	$(CXX) $(CXXFLAGS) $(OBJS) $(COBJS) -o $(TARGET)
 	
 -include $(DEPS)
 

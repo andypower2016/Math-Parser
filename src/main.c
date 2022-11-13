@@ -1,6 +1,6 @@
+// C or C++ code
+#include <stdio.h>
 #include "calculator.h"
-#include <iostream>
-#include <iomanip>
 
 // no invalid expressions
 #define expression_0 -1.2+2.4*(0.6-5.8)/2.9
@@ -28,13 +28,12 @@
 
 void compare(double result, const char expression[])
 {
+#ifdef __cplusplus
 	double res = cal_exp(expression);
-	std::cout << "result = (" << std::setprecision(15) << result << ", " << res << ") ";
-	auto isCorrect = (result == res) ? true : false;
-	if (isCorrect)  
-		std::cout << "correct " << result << std::endl;
-	else 
-		std::cout << "error" << std::endl;
+#else
+	double res = c_cal_exp(expression);
+#endif
+	printf("result = (%lf, %lf) %d\n", result, res, (result == res) ? 1 : 0);
 }
 
 int main(int argc, char* argv[])
