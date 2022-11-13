@@ -28,11 +28,7 @@
 
 void compare(double result, const char expression[])
 {
-#ifdef __cplusplus
 	double res = cal_exp(expression);
-#else
-	double res = c_cal_exp(expression);
-#endif
 	printf("result = (%lf, %lf) %d\n", result, res, (result == res) ? 1 : 0);
 }
 
