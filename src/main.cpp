@@ -21,6 +21,10 @@
 #define expression_6_str "((-72.6))+2.2*-3.4/2.89*9-(((((-5.8/2.4-6)))))"
 #define expression_7_str "-4.6/sin(20)*tan(7-80*4.6)+cos(5.9+cos(5.79-6)+1.2*tan(4.8-6.9/sin(20)/7.8-4.8))*3.8"
 
+// note : expression_6_str 
+// ((-72.6))+2.2*-3.4/2.89*9-(((((-5.8/2.4-6)))))     OK
+// ((-72.6))+2.2*(-3.4/2.89*9)-(((((-5.8/2.4-6)))))   Cause error
+
 
 void compare(double result, const char expression[])
 {
