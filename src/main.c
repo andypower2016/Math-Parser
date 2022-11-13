@@ -1,6 +1,8 @@
 // C or C++ code
 #include <stdio.h>
+#include <stdint.h>
 #include "calculator.h"
+#include "cov_base.h"
 
 // no invalid expressions
 #define expression_0 -1.2+2.4*(0.6-5.8)/2.9
@@ -24,6 +26,22 @@
 // note : expression_6_str 
 // ((-72.6))+2.2*-3.4/2.89*9-(((((-5.8/2.4-6)))))     OK
 // ((-72.6))+2.2*(-3.4/2.89*9)-(((((-5.8/2.4-6)))))   Cause error
+
+/*
+void __sanitizer_symbolize_pc(void *pc, const char *fmt, char *out_buf, size_t out_buf_size);
+
+void __sanitizer_cov_trace_pc_guard(uint32_t *guard) 
+{
+    if (!*guard) return;
+    void *PC = __builtin_return_address(0);
+    char PcDescr[4096];
+
+    // __sanitizer_symbolize_pc(PC, "%p %F %L", PcDescr, sizeof(PcDescr));
+	__sanitizer_symbolize_pc(PC, "%L", PcDescr, sizeof(PcDescr));
+    //printf("guard: %p %x PC %s\n", guard, *guard, PcDescr);
+
+	//c_insert_code_pc_desc(PcDescr);
+}*/
 
 
 void compare(double result, const char expression[])

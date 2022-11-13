@@ -4,6 +4,9 @@
 #include <vector>
 #include <stack>
 #include "calculator.h"
+
+#include "cov_base.h"
+
 using namespace std;
 
 

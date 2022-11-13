@@ -1,11 +1,12 @@
 CC := clang
 CXX := clang++
-CFLAGS := -g -O -fsanitize=address
-CXXFLAGS := -g -O -fsanitize=address
+CFLAGS := -g -O -fsanitize=address -fsanitize-coverage=trace-pc-guard
+CXXFLAGS := -g -O -fsanitize=address -fsanitize-coverage=trace-pc-guard
+
 # directories
 SRCFOLDER := $(PWD)
 BUILDFOLDER := $(PWD)/build
-DIRS = src
+DIRS = src cov
 SRCDIRS = $(foreach dir,$(DIRS),$(addprefix $(SRCFOLDER)/,$(dir)))
 BUILDDIR = $(foreach dir,$(DIRS),$(addprefix $(BUILDFOLDER)/,$(dir)))
 
