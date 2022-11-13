@@ -1,3 +1,4 @@
+<<<<<<< HEAD:src/calculator.cpp
 
 #include <iostream>
 #include <string>
